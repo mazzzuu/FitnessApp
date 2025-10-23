@@ -52,3 +52,8 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface LoginResponse {
+  message: string;
+  user: User;
+}

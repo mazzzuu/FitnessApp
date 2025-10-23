@@ -71,6 +71,39 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+// Route di login
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email e password sono richiesti' });
+  }
+
+  const sql = 'SELECT * FROM users WHERE email = ?';
+  db.get(sql, [email], (err, user) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+
+    if (!user) {
+      return res.status(401).json({ error: 'Credenziali non valide' });
+    }
+
+    // In un'app reale, dovresti usare bcrypt per confrontare le password hashate
+    if (user.password_hash !== password) {
+      return res.status(401).json({ error: 'Credenziali non valide' });
+    }
+
+    // Escludi la password dalla risposta
+    const { password_hash, ...userWithoutPassword } = user;
+    res.json({
+      message: 'Login successful',
+      user: userWithoutPassword
+    });
+  });
+});
+
 // Get user by id
 app.get('/api/users/:id', (req, res) => {
   console.log(`GET /api/users/${req.params.id} chiamato`);

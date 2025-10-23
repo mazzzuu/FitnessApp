@@ -1,11 +1,12 @@
 // api.ts
 import axios from 'axios';
-import type {
-  User,
-  DailyActivity,
-  WorkoutPlan,
-  Exercise,
-  ApiResponse
+import type { 
+  User, 
+  DailyActivity, 
+  WorkoutPlan, 
+  Exercise, 
+  ApiResponse,
+  LoginResponse 
 } from './types';
 
 const API_BASE_URL = 'http://localhost:5000/api';
@@ -15,6 +16,10 @@ const api = axios.create({
 });
 
 export const fitnessAPI = {
+  // Auth
+  login: (email: string, password: string): Promise<LoginResponse> => 
+    api.post('/login', { email, password }).then(response => response.data),
+
   // Users
   getUsers: (): Promise<ApiResponse<User[]>> => 
     api.get('/users').then(response => response.data),
