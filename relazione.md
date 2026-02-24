@@ -1,4 +1,4 @@
-1. Introduzione
+## 1. Introduzione
 
 **FitnessTracker** è un'applicazione web full stack progettata per aiutare gli utenti a monitorare le proprie attività fisiche quotidiane, visualizzare schede di allenamento personalizzate e analizzare l'andamento dei progressi nel tempo.  
 L'applicazione è composta da un frontend React (TypeScript) e un backend Node.js/Express con database SQLite.
